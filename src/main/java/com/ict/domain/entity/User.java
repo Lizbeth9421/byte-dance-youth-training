@@ -1,25 +1,19 @@
 package com.ict.domain.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @Author: Lizbeth9421
  * @Date: 2023/02/11/16:04
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class User implements Serializable{
     private Long userId;
 
@@ -45,6 +39,9 @@ public class User implements Serializable{
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+
+    public User() {
+    }
 
     private static final long serialVersionUID = 1L;
 

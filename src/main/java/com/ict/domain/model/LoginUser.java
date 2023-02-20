@@ -1,6 +1,6 @@
 package com.ict.domain.model;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.ict.domain.entity.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

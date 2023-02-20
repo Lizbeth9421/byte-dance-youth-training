@@ -81,4 +81,4 @@ dousheng:
     #密钥
     secret: Lizbeth9421
     #请求头
-    header: Authorization
+    header: token

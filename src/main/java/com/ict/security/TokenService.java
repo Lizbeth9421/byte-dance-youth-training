@@ -2,10 +2,14 @@ package com.ict.security;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.ict.constant.CommonConstants;
 import com.ict.constant.RedisConstants;
 import com.ict.domain.model.LoginUser;
 import com.ict.util.IpUtil;
+import com.ict.util.RedisCache;
 import com.ict.util.ServletUtils;
 import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
@@ -15,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -31,6 +37,10 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TokenService {
 
+    @Autowired
+    private RedisCache redisCache;
+
+
     /**
      * 1s
      */
@@ -46,10 +56,6 @@ public class TokenService {
      */
     private static final long MILLIS_HOUR = MILLIS_SECOND * 60;
 
-    @Resource
-    private RedisTemplate<Object, Object> redisTemplate;
-
-
     //@Autowired
     //private JwtInformation jwtInformation;
 
@@ -60,11 +66,14 @@ public class TokenService {
     //String header = jwtInformation.getHeader();
 
 
-    long expire = 1;
+    @Value("${dousheng.jwt.expire}")
+    long expire;
 
-    String secret = "Lizbeth9421";
+    @Value("${dousheng.jwt.secret}")
+    String secret;
 
-    String header = "Authorization";
+    @Value("${dousheng.jwt.header}")
+    String header;
 
     /**
      * 获取当前登录用户的信息
@@ -80,8 +89,9 @@ public class TokenService {
                 Claims claims = this.parseToken(token);
                 String uuid = (String) claims.get(CommonConstants.LOGIN_USER_KEY);
                 String userKey = getTokenKey(uuid);
-                return (LoginUser) redisTemplate.opsForValue().get(userKey);
+                return redisCache.getCacheObject(userKey);
             } catch (Exception e) {
+                log.error(e.toString());
                 log.error("解析令牌失败!");
             }
         }
@@ -122,7 +132,7 @@ public class TokenService {
      */
     public void delLoginUser(String token) {
         if (StrUtil.isNotBlank(token)) {
-            redisTemplate.delete(getTokenKey(token));
+            redisCache.deleteObject(getTokenKey(token));
         }
     }
 
@@ -150,7 +160,7 @@ public class TokenService {
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
         //设置到redis中
-        redisTemplate.opsForValue().set(userKey, loginUser, expire, TimeUnit.HOURS);
+        redisCache.setCacheObject(userKey, loginUser, (int) expire, TimeUnit.HOURS);
     }
 
     /**

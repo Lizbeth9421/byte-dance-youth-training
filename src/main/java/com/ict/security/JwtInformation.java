@@ -1,14 +1,13 @@
 package com.ict.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /**
  * @Author: Lizbeth9421
  * @Date: 2023/02/18/16:43
  */
-@Configuration
+@Component
 @ConfigurationProperties(prefix = "dousheng.jwt")
 public class JwtInformation {
 
