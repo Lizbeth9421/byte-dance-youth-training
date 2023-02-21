@@ -73,6 +73,13 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     # 时区
     time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  mvc:
+    async:
+      request-timeout: 30000
 
 mybatis:
   mapper-locations: classpath:mapperxml/*.xml
@@ -89,3 +96,10 @@ dousheng:
     secret: Lizbeth9421
     #请求头
     header: token
+
+aliyun:
+  endpoint: http://oss-cn-guangzhou.aliyuncs.com
+  accessKeyId: LTAI5t9qMN5Fm2GEc9tmnpUt
+  accessKeySecret: ud5QMInX7lbHiRFBaF5mMWkJ8b7TyE
+  bucketName: lizbeth9421
+  bucketDomain: http://lizbeth9421.oss-cn-guangzhou.aliyuncs.com

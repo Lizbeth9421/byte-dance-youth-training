@@ -2,9 +2,6 @@ package com.ict.security;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.ict.constant.CommonConstants;
 import com.ict.constant.RedisConstants;
 import com.ict.domain.model.LoginUser;
@@ -18,12 +15,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,6 +77,10 @@ public class TokenService {
     public LoginUser getLoginUser(HttpServletRequest request) {
         //获取请求中的token
         String token = this.getToken(request);
+        return getLoginUser(token);
+    }
+
+    public LoginUser getLoginUser(String token) {
         if (StrUtil.isNotBlank(token)) {
             try {
                 Claims claims = this.parseToken(token);

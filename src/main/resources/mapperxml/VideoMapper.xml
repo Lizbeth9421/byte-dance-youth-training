@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.mapper.VideoMapper">
+  <resultMap id="BaseResultMap" type="com.ict.domain.entity.Video">
+    <!--@mbg.generated-->
+    <!--@Table video-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="play_url" jdbcType="LONGVARCHAR" property="playUrl" />
+    <result column="cover_url" jdbcType="LONGVARCHAR" property="coverUrl" />
+    <result column="favorite_count" jdbcType="INTEGER" property="favoriteCount" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, user_id, title, play_url, cover_url, favorite_count, comment_count, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from video
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from video
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ict.domain.entity.Video">
+    <!--@mbg.generated-->
+    insert into video (id, user_id, title, 
+      play_url, cover_url, favorite_count, 
+      comment_count, create_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{playUrl,jdbcType=LONGVARCHAR}, #{coverUrl,jdbcType=LONGVARCHAR}, #{favoriteCount,jdbcType=INTEGER}, 
+      #{commentCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ict.domain.entity.Video">
+    <!--@mbg.generated-->
+    insert into video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="title != null and title != ''">
+        title,
+      </if>
+      <if test="playUrl != null and playUrl != ''">
+        play_url,
+      </if>
+      <if test="coverUrl != null and coverUrl != ''">
+        cover_url,
+      </if>
+      <if test="favoriteCount != null">
+        favorite_count,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null and title != ''">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="playUrl != null and playUrl != ''">
+        #{playUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coverUrl != null and coverUrl != ''">
+        #{coverUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="favoriteCount != null">
+        #{favoriteCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ict.domain.entity.Video">
+    <!--@mbg.generated-->
+    update video
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null and title != ''">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="playUrl != null and playUrl != ''">
+        play_url = #{playUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coverUrl != null and coverUrl != ''">
+        cover_url = #{coverUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="favoriteCount != null">
+        favorite_count = #{favoriteCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ict.domain.entity.Video">
+    <!--@mbg.generated-->
+    update video
+    set user_id = #{userId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      play_url = #{playUrl,jdbcType=LONGVARCHAR},
+      cover_url = #{coverUrl,jdbcType=LONGVARCHAR},
+      favorite_count = #{favoriteCount,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
