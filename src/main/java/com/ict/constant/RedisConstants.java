@@ -9,10 +9,10 @@ public class RedisConstants {
     /**
      * 登录用户 redis key
      */
-    public static final String LOGIN_TOKEN_KEY = "login_tokens:";
+    public static final String LOGIN_TOKEN_KEY = "login:tokens:";
 
     /**
      * 登录用户信息
      */
-    public static final String LOGIN_USER_INFO = "login_user_info:";
+    public static final String LOGIN_USER_INFO = "login:user:info:";
 }

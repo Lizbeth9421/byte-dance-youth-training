@@ -2,6 +2,7 @@ package com.ict.domain.entity;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class UserInfo implements Serializable {
     /**
      * 用户id
      */
+    @JsonProperty("id")
     private Long userId;
 
     /**
@@ -35,7 +37,7 @@ public class UserInfo implements Serializable {
     /**
      * 是否关注
      */
-    private Byte isFollow;
+    private Boolean isFollow;
 
     /**
      * 用户头像

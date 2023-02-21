@@ -19,4 +19,9 @@ public class LoginBody {
      */
     private String password;
 
+
+    public LoginBody(final String username, final String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

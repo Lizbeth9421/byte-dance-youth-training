@@ -50,7 +50,7 @@
                                background_image, signature, total_favorited,
                                work_count, favorite_count)
         values (#{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{followCount,jdbcType=INTEGER},
-                #{followerCount,jdbcType=INTEGER}, #{isFollow,jdbcType=TINYINT}, #{avatar,jdbcType=LONGVARCHAR},
+                #{followerCount,jdbcType=INTEGER}, #{isFollow,jdbcType=BOOLEAN}, #{avatar,jdbcType=LONGVARCHAR},
                 #{backgroundImage,jdbcType=LONGVARCHAR}, #{signature,jdbcType=LONGVARCHAR},
                 #{totalFavorited,jdbcType=INTEGER},
                 #{workCount,jdbcType=INTEGER}, #{favoriteCount,jdbcType=INTEGER})
@@ -143,7 +143,7 @@
                 follower_count = #{followerCount,jdbcType=INTEGER},
             </if>
             <if test="isFollow != null">
-                is_follow = #{isFollow,jdbcType=TINYINT},
+                is_follow = #{isFollow,jdbcType=BOOLEAN},
             </if>
             <if test="avatar != null and avatar != ''">
                 avatar = #{avatar,jdbcType=LONGVARCHAR},
@@ -172,7 +172,7 @@
         set `name`           = #{name,jdbcType=VARCHAR},
             follow_count     = #{followCount,jdbcType=INTEGER},
             follower_count   = #{followerCount,jdbcType=INTEGER},
-            is_follow        = #{isFollow,jdbcType=TINYINT},
+            is_follow        = #{isFollow,jdbcType=BOOLEAN},
             avatar           = #{avatar,jdbcType=LONGVARCHAR},
             background_image = #{backgroundImage,jdbcType=LONGVARCHAR},
             signature        = #{signature,jdbcType=LONGVARCHAR},

@@ -5,9 +5,7 @@ import java.util.Date;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @Author: Lizbeth9421
@@ -41,6 +39,13 @@ public class User implements Serializable{
     private Date updateTime;
 
     public User() {
+    }
+
+    public User(final String username, final String password, final Date createTime, final Date updateTime) {
+        this.username = username;
+        this.password = password;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     private static final long serialVersionUID = 1L;

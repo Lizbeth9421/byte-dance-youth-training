@@ -14,4 +14,10 @@ public class CommonConstants {
      * 令牌前缀
      */
     public static final String TOKEN_PREFIX = "Bearer ";
+
+
+    /**
+     * 用户昵称前缀
+     */
+    public static final String USER_PREFIX = "user_";
 }

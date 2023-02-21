@@ -66,6 +66,13 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+  jackson:
+    # 驼峰转为下划线
+    property-naming-strategy: SNAKE_CASE
+    # 日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 时区
+    time-zone: GMT+8
 
 mybatis:
   mapper-locations: classpath:mapperxml/*.xml

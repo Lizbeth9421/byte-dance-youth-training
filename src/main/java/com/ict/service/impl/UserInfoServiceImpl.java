@@ -77,6 +77,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (ObjectUtil.isNull(userInfo)) {
             userInfo = selectUserInfoByUserId(user_id);
             //重构缓存
+            // TODO: 2023/2/20 异步重构
             redisCache.setCacheObject(key, userInfo, (int) expire, TimeUnit.HOURS);
         }
         return userInfo;
