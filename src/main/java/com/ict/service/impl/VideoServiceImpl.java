@@ -1,6 +1,7 @@
 package com.ict.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.ict.domain.dto.VideoInfo;
 import com.ict.domain.model.LoginUser;
 import com.ict.domain.model.VideoUploadBody;
 import com.ict.exception.ServiceException;
@@ -17,6 +18,7 @@ import com.ict.service.VideoService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 import static com.ict.constant.CommonConstants.*;
 
@@ -98,6 +100,12 @@ public class VideoServiceImpl implements VideoService {
         video.setCommentCount(0);
         video.setCreateTime(new Date());
         return video;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<VideoInfo> getPublishList(final String token, final Integer userId) {
+        return videoMapper.getPublishListByUserId(userId);
     }
 
 }

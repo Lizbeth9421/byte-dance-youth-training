@@ -3,10 +3,7 @@ package com.ict.controller;
 import com.ict.domain.AjaxResult;
 import com.ict.domain.model.VideoUploadBody;
 import com.ict.service.VideoService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -28,5 +25,10 @@ public class VideoController {
         return AjaxResult.success("投稿成功");
     }
 
+    @GetMapping("/publish/list/")
+    public AjaxResult publishList(@RequestParam("token") String token,
+                                  @RequestParam("user_id") Integer userId) {
+        return AjaxResult.success("获取成功").put("video_list", videoService.getPublishList(token, userId));
+    }
 
 }

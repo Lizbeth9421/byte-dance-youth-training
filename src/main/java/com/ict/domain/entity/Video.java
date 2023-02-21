@@ -20,7 +20,7 @@ public class Video implements Serializable {
     private Long id;
 
     /**
-     * 作责id
+     * 作者id
      */
     private Long userId;
 

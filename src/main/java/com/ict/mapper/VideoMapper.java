@@ -1,7 +1,11 @@
 package com.ict.mapper;
 
+import com.ict.domain.dto.VideoInfo;
 import com.ict.domain.entity.Video;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @Author: Lizbeth9421
@@ -20,4 +24,12 @@ public interface VideoMapper {
     int updateByPrimaryKeySelective(Video record);
 
     int updateByPrimaryKey(Video record);
+
+    /**
+     * 根据用户id查询发布列表
+     *
+     * @param userId 用户id
+     * @return
+     */
+    List<VideoInfo> getPublishListByUserId(@Param("userId") Integer userId);
 }
