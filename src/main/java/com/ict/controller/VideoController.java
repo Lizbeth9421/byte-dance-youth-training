@@ -31,4 +31,10 @@ public class VideoController {
         return AjaxResult.success("获取成功").put("video_list", videoService.getPublishList(token, userId));
     }
 
+    @GetMapping("/feed")
+    public AjaxResult getFeedList(@RequestParam(value = "token", required = false) String token,
+                                  @RequestParam(value = "latest_time", required = false) String latest_time) {
+        return AjaxResult.success("获取成功").put("video_list", videoService.getFeedList(token));
+    }
+
 }

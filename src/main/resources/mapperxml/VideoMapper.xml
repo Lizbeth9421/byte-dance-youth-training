@@ -172,4 +172,27 @@
                  join user_info u on u.user_id = v.user_id
         where v.user_id = #{userId,jdbcType=INTEGER}
     </select>
+
+    <select id="getFeedList" resultMap="VideoInfo">
+        select v.id,
+               v.title,
+               v.play_url,
+               v.cover_url,
+               v.favorite_count,
+               v.comment_count,
+               u.*
+        <if test="userId != null">
+            ,
+                (select (exists(select 1
+                                from user_favourite
+                                where user_id = #{userId,jdbcType=INTEGER}
+                                  and video_id =
+                                      v.id))) as
+                    isFavorite
+        </if>
+        from video v
+                 join user_info u on u.user_id = v.user_id
+        order by create_time
+        limit 30
+    </select>
 </mapper>

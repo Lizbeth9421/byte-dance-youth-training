@@ -1,6 +1,7 @@
 package com.ict.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.ict.domain.dto.VideoInfo;
 import com.ict.domain.model.LoginUser;
 import com.ict.domain.model.VideoUploadBody;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.ict.constant.CommonConstants.*;
 
@@ -106,6 +108,17 @@ public class VideoServiceImpl implements VideoService {
     @Transactional(readOnly = true)
     public List<VideoInfo> getPublishList(final String token, final Integer userId) {
         return videoMapper.getPublishListByUserId(userId);
+    }
+
+    @Override
+    public List<VideoInfo> getFeedList(final String token) {
+        if (StrUtil.isNotBlank(token)) {
+            Long userId = tokenService.getLoginUser(token).getUserId();
+            return videoMapper.getFeedList(Math.toIntExact(userId));
+        } else {
+            return videoMapper.getFeedList(null);
+        }
+
     }
 
 }

@@ -21,6 +21,6 @@ class ByteDanceYouthTrainingApplicationTests {
 
     @Test
     void test1(){
-        System.out.println(videoMapper.getPublishListByUserId(1));
+        System.out.println(videoMapper.getFeedList(1));
     }
 }

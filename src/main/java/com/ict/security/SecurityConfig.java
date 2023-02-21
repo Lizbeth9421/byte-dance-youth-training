@@ -79,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 过滤请求
                 .authorizeRequests()
                 // 对于登录login 注册register允许匿名
-                .antMatchers("/douyin/user/login/", "/douyin/user/register/").permitAll()
+                .antMatchers("/douyin/user/login/", "/douyin/user/register/","/douyin/feed").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated()
                 .and()

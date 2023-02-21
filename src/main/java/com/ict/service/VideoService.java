@@ -40,4 +40,6 @@ public interface VideoService {
      * @return
      */
     List<VideoInfo> getPublishList(String token, Integer userId);
+
+    List<VideoInfo> getFeedList(String token);
 }

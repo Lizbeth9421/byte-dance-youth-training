@@ -32,4 +32,13 @@ public interface VideoMapper {
      * @return
      */
     List<VideoInfo> getPublishListByUserId(@Param("userId") Integer userId);
+
+
+    /**
+     * 获取视频列表
+     *
+     * @param userId
+     * @return
+     */
+    List<VideoInfo> getFeedList(@Param("userId") Integer userId);
 }
