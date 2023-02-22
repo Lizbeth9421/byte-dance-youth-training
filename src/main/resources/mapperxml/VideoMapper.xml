@@ -195,4 +195,26 @@
         order by create_time
         limit 30
     </select>
+
+    <select id="getVideoInfoByVideoId" resultMap="VideoInfo">
+        select v.id,
+        v.title,
+        v.play_url,
+        v.cover_url,
+        v.favorite_count,
+        v.comment_count,
+        u.* ,
+        (select (exists(select 1
+        from user_favourite
+        where user_id = v.user_id
+        and video_id =
+        v.id))) as
+        isFavorite
+        from video v
+        join user_info u on u.user_id = v.user_id
+        where v.id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

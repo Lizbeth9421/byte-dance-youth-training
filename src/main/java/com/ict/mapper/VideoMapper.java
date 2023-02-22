@@ -41,4 +41,12 @@ public interface VideoMapper {
      * @return
      */
     List<VideoInfo> getFeedList(@Param("userId") Integer userId);
+
+    /**
+     * 根据视频id获取具体视频信息
+     *
+     * @param list 视频id
+     * @return
+     */
+    List<VideoInfo> getVideoInfoByVideoId(@Param("list") List<Long> list);
 }

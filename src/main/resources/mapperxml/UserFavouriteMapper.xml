@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.mapper.UserFavouriteMapper">
+    <resultMap id="BaseResultMap" type="com.ict.domain.entity.UserFavourite">
+        <!--@mbg.generated-->
+        <!--@Table user_favourite-->
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="video_id" jdbcType="BIGINT" property="videoId"/>
+    </resultMap>
+    <resultMap id="VideoInfo" type="com.ict.domain.dto.VideoInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="play_url" jdbcType="LONGVARCHAR" property="playUrl"/>
+        <result column="cover_url" jdbcType="LONGVARCHAR" property="coverUrl"/>
+        <result column="favorite_count" jdbcType="INTEGER" property="favoriteCount"/>
+        <result column="comment_count" jdbcType="INTEGER" property="commentCount"/>
+        <result column="isFavorite" jdbcType="BOOLEAN" property="isFavorite"/>
+        <association property="author" javaType="com.ict.domain.entity.UserInfo" column="user_id"
+                     select="com.ict.mapper.UserInfoMapper.selectUserInfoByUserId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        user_id, video_id
+    </sql>
+    <insert id="insert" parameterType="com.ict.domain.entity.UserFavourite">
+        <!--@mbg.generated-->
+        insert into user_favourite (user_id, video_id)
+        values (#{userId,jdbcType=BIGINT}, #{videoId,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ict.domain.entity.UserFavourite">
+        <!--@mbg.generated-->
+        insert into user_favourite
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="videoId != null">
+                video_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="videoId != null">
+                #{videoId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getFavouriteList" resultType="long">
+        select video_id
+        from user_favourite
+        where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
+</mapper>

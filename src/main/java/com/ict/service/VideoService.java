@@ -3,6 +3,7 @@ package com.ict.service;
 import com.ict.domain.dto.VideoInfo;
 import com.ict.domain.entity.Video;
 import com.ict.domain.model.VideoUploadBody;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -41,5 +42,21 @@ public interface VideoService {
      */
     List<VideoInfo> getPublishList(String token, Integer userId);
 
+    /**
+     * 获得投稿列表
+     * 有令牌就封装是否点赞字段
+     * 没用就不封装该字段
+     *
+     * @param token 令牌
+     * @return
+     */
     List<VideoInfo> getFeedList(String token);
+
+    /**
+     * 根据视频id列表获取具体视频信息
+     *
+     * @param list 视频id列表
+     * @return
+     */
+    List<VideoInfo> getVideoInfoByVideoId(List<Long> list);
 }

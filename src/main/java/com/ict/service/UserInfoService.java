@@ -35,5 +35,13 @@ public interface UserInfoService {
      * @return
      */
     UserInfo getUserInfo(Integer user_id);
+
+
+    /**
+     * 增加用户作品数
+     * @param userId 用户id
+     * @return
+     */
+    Integer increaseWorkCountByUserId(Long userId);
 }
 

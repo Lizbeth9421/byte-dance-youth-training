@@ -46,14 +46,14 @@
     <insert id="insert" parameterType="com.ict.domain.entity.UserInfo">
         <!--@mbg.generated-->
         insert into user_info (user_id, `name`, follow_count,
-                               follower_count, is_follow, avatar,
-                               background_image, signature, total_favorited,
-                               work_count, favorite_count)
+        follower_count, is_follow, avatar,
+        background_image, signature, total_favorited,
+        work_count, favorite_count)
         values (#{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{followCount,jdbcType=INTEGER},
-                #{followerCount,jdbcType=INTEGER}, #{isFollow,jdbcType=BOOLEAN}, #{avatar,jdbcType=LONGVARCHAR},
-                #{backgroundImage,jdbcType=LONGVARCHAR}, #{signature,jdbcType=LONGVARCHAR},
-                #{totalFavorited,jdbcType=INTEGER},
-                #{workCount,jdbcType=INTEGER}, #{favoriteCount,jdbcType=INTEGER})
+        #{followerCount,jdbcType=INTEGER}, #{isFollow,jdbcType=BOOLEAN}, #{avatar,jdbcType=LONGVARCHAR},
+        #{backgroundImage,jdbcType=LONGVARCHAR}, #{signature,jdbcType=LONGVARCHAR},
+        #{totalFavorited,jdbcType=INTEGER},
+        #{workCount,jdbcType=INTEGER}, #{favoriteCount,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="com.ict.domain.entity.UserInfo">
         <!--@mbg.generated-->
@@ -169,16 +169,16 @@
     <update id="updateByPrimaryKey" parameterType="com.ict.domain.entity.UserInfo">
         <!--@mbg.generated-->
         update user_info
-        set `name`           = #{name,jdbcType=VARCHAR},
-            follow_count     = #{followCount,jdbcType=INTEGER},
-            follower_count   = #{followerCount,jdbcType=INTEGER},
-            is_follow        = #{isFollow,jdbcType=BOOLEAN},
-            avatar           = #{avatar,jdbcType=LONGVARCHAR},
-            background_image = #{backgroundImage,jdbcType=LONGVARCHAR},
-            signature        = #{signature,jdbcType=LONGVARCHAR},
-            total_favorited  = #{totalFavorited,jdbcType=INTEGER},
-            work_count       = #{workCount,jdbcType=INTEGER},
-            favorite_count   = #{favoriteCount,jdbcType=INTEGER}
+        set `name` = #{name,jdbcType=VARCHAR},
+        follow_count = #{followCount,jdbcType=INTEGER},
+        follower_count = #{followerCount,jdbcType=INTEGER},
+        is_follow = #{isFollow,jdbcType=BOOLEAN},
+        avatar = #{avatar,jdbcType=LONGVARCHAR},
+        background_image = #{backgroundImage,jdbcType=LONGVARCHAR},
+        signature = #{signature,jdbcType=LONGVARCHAR},
+        total_favorited = #{totalFavorited,jdbcType=INTEGER},
+        work_count = #{workCount,jdbcType=INTEGER},
+        favorite_count = #{favoriteCount,jdbcType=INTEGER}
         where user_id = #{userId,jdbcType=BIGINT}
     </update>
 
@@ -188,4 +188,10 @@
         from user_info
         where user_id = #{user_id,jdbcType=INTEGER}
     </select>
+
+    <update id="increaseWorkCountByUserId">
+        update user_info
+        set work_count = work_count + 1
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
 </mapper>

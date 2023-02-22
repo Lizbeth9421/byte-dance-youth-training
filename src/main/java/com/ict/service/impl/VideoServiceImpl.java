@@ -8,6 +8,7 @@ import com.ict.domain.model.VideoUploadBody;
 import com.ict.exception.ServiceException;
 import com.ict.oss.service.OssService;
 import com.ict.security.TokenService;
+import com.ict.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,9 @@ public class VideoServiceImpl implements VideoService {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private UserInfoService infoService;
 
     @Override
     public int deleteByPrimaryKey(Long id) {
@@ -79,7 +83,10 @@ public class VideoServiceImpl implements VideoService {
         //上传文件
         String fileUrl = ossService.uploadFile(uploadBody.getData(), resourceGroup);
         Video video = generateVideo(loginUser.getUserId(), fileUrl, uploadBody.getTitle());
+        //添加视频信息
         videoMapper.insertSelective(video);
+        //更新投稿者信息
+        infoService.increaseWorkCountByUserId(loginUser.getUserId());
     }
 
 
@@ -119,6 +126,11 @@ public class VideoServiceImpl implements VideoService {
             return videoMapper.getFeedList(null);
         }
 
+    }
+
+    @Override
+    public List<VideoInfo> getVideoInfoByVideoId(final List<Long> list) {
+        return videoMapper.getVideoInfoByVideoId(list);
     }
 
 }

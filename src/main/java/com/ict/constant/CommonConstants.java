@@ -5,6 +5,12 @@ package com.ict.constant;
  * @Date: 2023/02/18/20:22
  */
 public class CommonConstants {
+
+    /**
+     * 缓存时间 1小时
+     */
+    public static final Integer CACHE_TIME = 1;
+
     /**
      * jwt中的信息
      */

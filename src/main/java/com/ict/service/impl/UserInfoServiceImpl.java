@@ -2,6 +2,8 @@ package com.ict.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
+import com.ict.async.AsyncManager;
+import com.ict.async.factory.AsyncFactor;
 import com.ict.util.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -77,10 +79,14 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (ObjectUtil.isNull(userInfo)) {
             userInfo = selectUserInfoByUserId(user_id);
             //重构缓存
-            // TODO: 2023/2/20 异步重构
-            redisCache.setCacheObject(key, userInfo, (int) expire, TimeUnit.HOURS);
+            AsyncManager.me().execute(AsyncFactor.constructUserInfo(userInfo, key));
         }
         return userInfo;
+    }
+
+    @Override
+    public Integer increaseWorkCountByUserId(final Long userId) {
+        return userInfoMapper.increaseWorkCountByUserId(userId);
     }
 
 }
