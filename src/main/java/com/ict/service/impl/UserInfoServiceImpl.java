@@ -85,8 +85,28 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public Integer increaseWorkCountByUserId(final Long userId) {
+    public Integer increaseWorkCountByUserId(Long userId) {
         return userInfoMapper.increaseWorkCountByUserId(userId);
+    }
+
+    @Override
+    public Integer increaseFavouriteCount(final Long userId) {
+        return userInfoMapper.increaseFavouriteCount(userId);
+    }
+
+    @Override
+    public Integer increaseTotalFavourite(final Long userId) {
+        return userInfoMapper.increaseTotalFavourite(userId);
+    }
+
+    @Override
+    public Integer decreaseFavouriteCount(final Long userId) {
+        return userInfoMapper.decreaseFavouriteCount(userId);
+    }
+
+    @Override
+    public Integer decreaseTotalFavourite(final Long userId) {
+        return userInfoMapper.decreaseTotalFavourite(userId);
     }
 
 }

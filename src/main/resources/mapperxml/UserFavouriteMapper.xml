@@ -20,7 +20,8 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        user_id, video_id
+        user_id,
+        video_id
     </sql>
     <insert id="insert" parameterType="com.ict.domain.entity.UserFavourite">
         <!--@mbg.generated-->
@@ -54,4 +55,10 @@
         where user_id = #{userId,jdbcType=BIGINT}
     </select>
 
+    <delete id="delete">
+        delete
+        from user_favourite
+        where user_id = #{userId,jdbcType=BIGINT}
+          and video_id = #{videoId,jdbcType=BIGINT}
+    </delete>
 </mapper>

@@ -2,10 +2,7 @@ package com.ict.controller;
 
 import com.ict.domain.AjaxResult;
 import com.ict.service.UserFavouriteService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -21,8 +18,15 @@ public class FavouriteController {
 
 
     @GetMapping("/list/")
-    public AjaxResult getFavouriteListInfo(@RequestParam("user_id") Long user_id,
-                                           @RequestParam("token") String token) {
+    public AjaxResult getFavouriteListInfo(@RequestParam("user_id") Long user_id, @RequestParam("token") String token) {
         return AjaxResult.success("获取成功").put("video_list", favouriteService.getFavouriteListInfo(user_id));
     }
+
+    @PostMapping("/action/")
+    public AjaxResult like(@RequestParam("token") String token, @RequestParam("video_id") Long video_id, @RequestParam(
+            "action_type") Integer action_type) {
+        favouriteService.like(token, video_id, action_type);
+        return AjaxResult.success();
+    }
+
 }

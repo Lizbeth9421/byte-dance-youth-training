@@ -49,4 +49,20 @@ public interface VideoMapper {
      * @return
      */
     List<VideoInfo> getVideoInfoByVideoId(@Param("list") List<Long> list);
+
+    /**
+     * 视频点赞数+1
+     *
+     * @param video_id 视频id
+     * @return
+     */
+    Integer increaseFavouriteCountByVideoId(@Param("video_id") Long video_id);
+
+    /**
+     * 视频点赞数-1
+     *
+     * @param video_id 视频id
+     * @return
+     */
+    Integer decreaseFavouriteCountByVideoId(@Param("video_id") Long video_id);
 }

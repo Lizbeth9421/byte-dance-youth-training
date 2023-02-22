@@ -133,4 +133,14 @@ public class VideoServiceImpl implements VideoService {
         return videoMapper.getVideoInfoByVideoId(list);
     }
 
+    @Override
+    public Integer increaseFavouriteCountByVideoId(final Long video_id) {
+        return videoMapper.increaseFavouriteCountByVideoId(video_id);
+    }
+
+    @Override
+    public Integer decreaseFavouriteCountByVideoId(final Long video_id) {
+        return videoMapper.decreaseFavouriteCountByVideoId(video_id);
+    }
+
 }

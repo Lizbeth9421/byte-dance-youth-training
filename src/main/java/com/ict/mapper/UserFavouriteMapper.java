@@ -26,4 +26,13 @@ public interface UserFavouriteMapper {
      */
     List<Long> getFavouriteList(@Param("userId") Long userId);
 
+    /**
+     * 删除
+     *
+     * @param userId  用户id
+     * @param videoId 视频id
+     * @return
+     */
+    Integer delete(@Param("userId") Long userId, @Param("videoId") Long videoId);
+
 }

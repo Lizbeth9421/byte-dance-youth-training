@@ -59,4 +59,21 @@ public interface VideoService {
      * @return
      */
     List<VideoInfo> getVideoInfoByVideoId(List<Long> list);
+
+    /**
+     * 视频点赞数+1
+     *
+     * @param video_id 视频id
+     * @return
+     */
+    Integer increaseFavouriteCountByVideoId(Long video_id);
+
+
+    /**
+     * 视频点赞数-1
+     *
+     * @param video_id 视频id
+     * @return
+     */
+    Integer decreaseFavouriteCountByVideoId(Long video_id);
 }
