@@ -23,9 +23,9 @@ public class FavouriteController {
     }
 
     @PostMapping("/action/")
-    public AjaxResult like(@RequestParam("token") String token, @RequestParam("video_id") Long video_id, @RequestParam(
-            "action_type") Integer action_type) {
-        favouriteService.like(token, video_id, action_type);
+    public AjaxResult like(@RequestParam("token") String token, @RequestParam("video_id") String video_id, @RequestParam(
+            "action_type") String action_type) {
+        favouriteService.like(token, Long.valueOf(video_id), Integer.valueOf(action_type));
         return AjaxResult.success();
     }
 

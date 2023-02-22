@@ -21,6 +21,7 @@ import com.ict.mapper.UserFavouriteMapper;
 import com.ict.service.UserFavouriteService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.ict.constant.RedisConstants.USER_FAVOURITE_LIST;
@@ -64,6 +65,9 @@ public class UserFavouriteServiceImpl implements UserFavouriteService {
         List<VideoInfo> videoInfos = redisCache.getCacheObject(USER_FAVOURITE_LIST + userId);
         if (ObjectUtil.isNull(videoInfos) || videoInfos.isEmpty()) {
             List<Long> favouriteListId = userFavouriteMapper.getFavouriteList(userId);
+            if (favouriteListId == null || favouriteListId.isEmpty()) {
+                return Collections.emptyList();
+            }
             List<VideoInfo> favouriteListInfo = videoService.getVideoInfoByVideoId(favouriteListId);
             //异步重构缓存
             AsyncManager.me().execute(AsyncFactor.constructUserFavouriteList(favouriteListInfo, userId));
@@ -77,12 +81,13 @@ public class UserFavouriteServiceImpl implements UserFavouriteService {
     public void like(final String token, final Long video_id, final Integer action_type) {
         //获取用户信息
         LoginUser loginUser = tokenService.getLoginUser(token);
+        //删除redis中用户喜欢列表
+        redisCache.deleteObject(USER_FAVOURITE_LIST + loginUser.getUserId());
         //获取视频信息
         Video video = videoService.selectByPrimaryKey(video_id);
         //判断是否是当前用户发布的视频
         UserFavouriteService proxy = (UserFavouriteService) AopContext.currentProxy();
         if (action_type == 1) {
-            //是当前用户发布的视频
             proxy.takeALike(loginUser, video, loginUser.getUserId().equals(video.getUserId()));
         } else {
             proxy.cancelLike(loginUser, video, loginUser.getUserId().equals(video.getUserId()));
@@ -100,8 +105,11 @@ public class UserFavouriteServiceImpl implements UserFavouriteService {
         //用户信息表的点赞数+1
         infoService.increaseFavouriteCount(loginUser.getUserId());
         if (isMySelf) {
-            //被点赞数+1
+            //当前用户被点赞数+1
             infoService.increaseTotalFavourite(loginUser.getUserId());
+        } else {
+            //视频作者的被点赞数+1
+            infoService.increaseTotalFavourite(video.getUserId());
         }
     }
 
@@ -116,8 +124,10 @@ public class UserFavouriteServiceImpl implements UserFavouriteService {
         infoService.decreaseFavouriteCount(loginUser.getUserId());
         //用户信息表的点赞数-1
         if (isMySelf) {
-            //被点赞数-1
+            //当前用户被点赞数-1
             infoService.decreaseTotalFavourite(loginUser.getUserId());
+        } else {
+            infoService.decreaseTotalFavourite(video.getUserId());
         }
     }
 
