@@ -1,7 +1,10 @@
 package com.ict.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ict.domain.entity.UserInfo;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @Author: Lizbeth9421
@@ -9,11 +12,13 @@ import lombok.Data;
  */
 @Data
 public class CommentInfo {
-    private UserInfo user;
 
     private Long id;
 
     private String content;
 
-    private String create_date;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createDate;
+
+    private UserInfo user;
 }

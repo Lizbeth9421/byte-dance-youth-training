@@ -1,5 +1,6 @@
 package com.ict.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import com.ict.domain.dto.CommentInfo;
 import com.ict.domain.entity.UserInfo;
@@ -21,8 +22,12 @@ import com.ict.domain.entity.Comment;
 import com.ict.mapper.CommentMapper;
 import com.ict.service.CommentService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.jsf.FacesContextUtils;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: Lizbeth9421
@@ -113,6 +118,11 @@ public class CommentServiceImpl implements CommentService {
         return generateCommentInfo(comment_id, infoService.getUserInfo(userId), comment.getContent(), comment.getCreateDate());
     }
 
+    @Override
+    public List<CommentInfo> getCommentsList(final Long video_id) {
+        return commentMapper.getCommentsList(video_id);
+    }
+
     private Comment generateComment(Long videoId, Long userId, String content) {
         Comment comment = new Comment();
         comment.setVideoId(videoId);
@@ -127,7 +137,8 @@ public class CommentServiceImpl implements CommentService {
         info.setId(commentId);
         info.setUser(userInfo);
         info.setContent(content);
-        info.setCreate_date(DateUtil.format(create_date, "yyyy-MM-dd HH:mm:ss"));
+        //info.setCreate_date(DateUtil.format(create_date, "yyyy-MM-dd HH:mm:ss"));
+        info.setCreateDate(create_date);
         return info;
     }
 

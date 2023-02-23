@@ -4,6 +4,8 @@ import com.ict.domain.dto.CommentInfo;
 import com.ict.domain.entity.Comment;
 import com.ict.domain.model.CommentBody;
 
+import java.util.List;
+
 /**
  * @Author: Lizbeth9421
  * @Date: 2023/02/23/9:55
@@ -50,5 +52,13 @@ public interface CommentService {
      * @return
      */
     CommentInfo deleteComment(Long userId, Long videoId, Long comment_id);
+
+    /**
+     * 获取评论列表
+     *
+     * @param video_id 视频id
+     * @return
+     */
+    List<CommentInfo> getCommentsList( Long video_id);
 }
 

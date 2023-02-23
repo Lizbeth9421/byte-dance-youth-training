@@ -1,7 +1,10 @@
 package com.ict.mapper;
 
+import com.ict.domain.dto.CommentInfo;
 import com.ict.domain.entity.Comment;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author: Lizbeth9421
@@ -20,4 +23,11 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    /**
+     * 获取评论列表
+     * @param video_id 视频id
+     * @return
+     */
+    List<CommentInfo> getCommentsList(Long video_id);
 }

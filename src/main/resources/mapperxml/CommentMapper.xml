@@ -10,6 +10,13 @@
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
     </resultMap>
+    <resultMap id="CommentInfo" type="com.ict.domain.dto.CommentInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="content" property="content" jdbcType="LONGNVARCHAR"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <association property="user" javaType="com.ict.domain.entity.UserInfo" column="user_id"
+                     select="com.ict.mapper.UserInfoMapper.selectUserInfoByUserId"/>
+    </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         id,
@@ -104,4 +111,15 @@
             create_date = #{createDate,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=BIGINT}
     </update>
+
+    <select id="getCommentsList" resultMap="CommentInfo">
+        select c.id,
+               content,
+               create_date as create_date,
+        u.*
+        from comment c
+                 join user_info u on u.user_id = c.user_id
+        where video_id = #{video_id,jdbcType=BIGINT}
+        order by create_date desc
+    </select>
 </mapper>

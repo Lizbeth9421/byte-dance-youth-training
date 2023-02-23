@@ -5,9 +5,9 @@ import com.ict.domain.dto.CommentInfo;
 import com.ict.domain.model.CommentBody;
 import com.ict.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author: Lizbeth9421
@@ -21,8 +21,14 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/action/")
-    public AjaxResult takeComment(CommentBody commentBody){
+    public AjaxResult takeComment(CommentBody commentBody) {
         CommentInfo commentInfo = commentService.comment(commentBody);
         return AjaxResult.success().put("comment", commentInfo);
+    }
+
+    @GetMapping("/list/")
+    public AjaxResult getCommentsList(@RequestParam("token") String token, @RequestParam("video_id") String video_id) {
+        List<CommentInfo> list = commentService.getCommentsList(Long.valueOf(video_id));
+        return AjaxResult.success("获取成功").put("comment_list", list);
     }
 }

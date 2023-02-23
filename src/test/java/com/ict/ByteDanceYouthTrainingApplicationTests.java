@@ -1,7 +1,9 @@
 package com.ict;
 
+import com.ict.domain.dto.CommentInfo;
 import com.ict.mapper.UserFavouriteMapper;
 import com.ict.mapper.VideoMapper;
+import com.ict.service.CommentService;
 import com.ict.util.FileNameUtil;
 import com.ict.util.SecurityUtil;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,9 @@ class ByteDanceYouthTrainingApplicationTests {
     @Autowired
     private UserFavouriteMapper userFavouriteMapper;
 
+    @Autowired
+    private CommentService commentService;
+
     @Test
     void contextLoads() {
         System.out.println(SecurityUtil.encryptPassword("123456"));
@@ -35,5 +40,12 @@ class ByteDanceYouthTrainingApplicationTests {
         List<Long> list = userFavouriteMapper.getFavouriteList(1L);
         System.out.println(list);
         System.out.println(videoMapper.getVideoInfoByVideoId(list));
+    }
+
+    @Test
+    void test3() {
+        for (final CommentInfo commentInfo : commentService.getCommentsList(4L)) {
+            System.out.println(commentInfo);
+        }
     }
 }
