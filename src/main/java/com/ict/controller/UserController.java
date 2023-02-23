@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public AjaxResult userInfo(@RequestParam("user_id") Integer user_id,
+    public AjaxResult userInfo(@RequestParam("user_id") Long user_id,
                                @RequestParam("token") String token) {
 
         return AjaxResult.success().put("user", infoService.getUserInfo(user_id));

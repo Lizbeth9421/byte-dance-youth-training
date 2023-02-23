@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.mapper.CommentMapper">
+    <resultMap id="BaseResultMap" type="com.ict.domain.entity.Comment">
+        <!--@mbg.generated-->
+        <!--@Table `comment`-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="video_id" jdbcType="BIGINT" property="videoId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        video_id,
+        user_id,
+        content,
+        create_date
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from `comment`
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from `comment`
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.ict.domain.entity.Comment" keyProperty="id" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into `comment` (id, video_id, user_id,
+                               content, create_date)
+        values (#{id,jdbcType=BIGINT}, #{videoId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+                #{content,jdbcType=LONGVARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ict.domain.entity.Comment" keyProperty="id" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into `comment`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="videoId != null">
+                video_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="content != null and content != ''">
+                content,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="videoId != null">
+                #{videoId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="content != null and content != ''">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ict.domain.entity.Comment">
+        <!--@mbg.generated-->
+        update `comment`
+        <set>
+            <if test="videoId != null">
+                video_id = #{videoId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ict.domain.entity.Comment">
+        <!--@mbg.generated-->
+        update `comment`
+        set video_id    = #{videoId,jdbcType=BIGINT},
+            user_id     = #{userId,jdbcType=BIGINT},
+            content     = #{content,jdbcType=LONGVARCHAR},
+            create_date = #{createDate,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

@@ -27,7 +27,7 @@ public interface UserInfoService {
      * @param user_id 用户id
      * @return
      */
-    UserInfo selectUserInfoByUserId(Integer user_id);
+    UserInfo selectUserInfoByUserId(Long user_id);
 
     /**
      * 获取用户信息
@@ -35,7 +35,7 @@ public interface UserInfoService {
      * @param user_id 用户id
      * @return
      */
-    UserInfo getUserInfo(Integer user_id);
+    UserInfo getUserInfo(Long user_id);
 
 
     /**

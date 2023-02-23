@@ -68,12 +68,12 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfo selectUserInfoByUserId(final Integer user_id) {
+    public UserInfo selectUserInfoByUserId(final Long user_id) {
         return userInfoMapper.selectUserInfoByUserId(user_id);
     }
 
     @Override
-    public UserInfo getUserInfo(final Integer user_id) {
+    public UserInfo getUserInfo(final Long user_id) {
         String key = LOGIN_USER_INFO + user_id;
         UserInfo userInfo = redisCache.getCacheObject(key);
         if (ObjectUtil.isNull(userInfo)) {

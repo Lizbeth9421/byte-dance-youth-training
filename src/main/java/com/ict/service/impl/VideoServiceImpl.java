@@ -120,12 +120,16 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<VideoInfo> getFeedList(final String token) {
         if (StrUtil.isNotBlank(token)) {
-            Long userId = tokenService.getLoginUser(token).getUserId();
+            LoginUser loginUser = tokenService.getLoginUser(token);
+            if (ObjectUtil.isNull(loginUser)){
+                //说明令牌已经过期
+                return videoMapper.getFeedList(null);
+            }
+            Long userId = loginUser.getUserId();
             return videoMapper.getFeedList(Math.toIntExact(userId));
         } else {
             return videoMapper.getFeedList(null);
         }
-
     }
 
     @Override
@@ -141,6 +145,16 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public Integer decreaseFavouriteCountByVideoId(final Long video_id) {
         return videoMapper.decreaseFavouriteCountByVideoId(video_id);
+    }
+
+    @Override
+    public Integer increaseCommentCountByVideoId(final Long video_id) {
+        return videoMapper.increaseCommentCountByVideoId(video_id);
+    }
+
+    @Override
+    public Integer decreaseCommentCountByVideoId(final Long video_id) {
+        return videoMapper.decreaseCommentCountByVideoId(video_id);
     }
 
 }

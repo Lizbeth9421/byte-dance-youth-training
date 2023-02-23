@@ -76,4 +76,20 @@ public interface VideoService {
      * @return
      */
     Integer decreaseFavouriteCountByVideoId(Long video_id);
+
+    /**
+     * 视频评论数+1
+     *
+     * @param video_id 视频id
+     * @return
+     */
+    Integer increaseCommentCountByVideoId(Long video_id);
+
+    /**
+     * 视频评论数-1
+     *
+     * @param video_id 视频id
+     * @return
+     */
+    Integer decreaseCommentCountByVideoId(Long video_id);
 }

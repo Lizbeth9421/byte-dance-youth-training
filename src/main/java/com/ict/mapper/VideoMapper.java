@@ -65,4 +65,20 @@ public interface VideoMapper {
      * @return
      */
     Integer decreaseFavouriteCountByVideoId(@Param("video_id") Long video_id);
+
+    /**
+     * 视频评论数+1
+     *
+     * @param video_id 视频id
+     * @return
+     */
+    Integer increaseCommentCountByVideoId(@Param("video_id") Long video_id);
+
+    /**
+     * 视频评论数-1
+     *
+     * @param video_id 视频id
+     * @return
+     */
+    Integer decreaseCommentCountByVideoId(@Param("video_id") Long video_id);
 }

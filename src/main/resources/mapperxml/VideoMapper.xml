@@ -229,4 +229,16 @@
         set favorite_count = favorite_count - 1
         where id = #{video_id,jdbcType=BIGINT}
     </update>
+
+    <update id="increaseCommentCountByVideoId">
+        update video
+        set comment_count = comment_count + 1
+        where id = #{video_id,jdbcType=BIGINT}
+    </update>
+
+    <update id="decreaseCommentCountByVideoId">
+        update video
+        set comment_count = comment_count - 1
+        where id = #{video_id,jdbcType=BIGINT}
+    </update>
 </mapper>
