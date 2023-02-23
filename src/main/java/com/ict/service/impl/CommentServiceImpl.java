@@ -6,6 +6,7 @@ import com.ict.domain.dto.CommentInfo;
 import com.ict.domain.entity.UserInfo;
 import com.ict.domain.model.CommentBody;
 import com.ict.domain.model.LoginUser;
+import com.ict.exception.ServiceException;
 import com.ict.security.TokenService;
 import com.ict.service.UserInfoService;
 import com.ict.service.VideoService;
@@ -110,6 +111,10 @@ public class CommentServiceImpl implements CommentService {
     public CommentInfo deleteComment(final Long userId, final Long videoId, Long comment_id) {
         //查询要删除的评论消息
         Comment comment = commentMapper.selectByPrimaryKey(comment_id);
+        //判断该评论是否是当前用户发布的
+        if (!userId.equals(comment.getUserId())) {
+            throw new ServiceException("你不能删除别人的评论！");
+        }
         //删除评论表信息
         commentMapper.deleteByPrimaryKey(comment_id);
         //视频表中的评论总数-1
